@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
+    title: `Katsura Cafeteria Crowding`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
     author: `@gatsbyjs`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
@@ -15,11 +15,12 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    'gatsby-plugin-postcss',
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
+        name: `katsura-crowding`,
         short_name: `starter`,
         start_url: `/`,
         background_color: `#663399`,
