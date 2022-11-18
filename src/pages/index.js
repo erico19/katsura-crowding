@@ -12,11 +12,11 @@ import Exclamation from "../images/Exclamation.svg"
 
 const IndexPage = () => (
   <Layout>
-    <div className="grid grid-cols-1 sm:grid-cols-2 p-4 gap-2">
-      <div className="px-8 py-16">
+    <div className="grid grid-cols-1 md:grid-cols-5 p-4 md:py-24 md:px-8 gap-2 md:gap-16 lg:gap-24 items-end">
+      <div className="col-span-3 px-8 py-16 md:py-0">
         <CrowdChart />
       </div>
-      <div className="grid grid-cols-1 p-4 gap-2 content-start">
+      <div className="col-span-2 grid grid-cols-1 p-4 gap-2 content-start">
         <div className="flex gap-1 p-2 bg-yellow-200 rounded-lg items-center">
           <img
             className="inline h-4"
@@ -39,7 +39,7 @@ const IndexPage = () => (
             <span className="text-sm text-gray-800 font medium">Busier than usual</span>
           </div>
         </div>
-        <div>
+        <div className="flex">
           <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
             <Link to="https://west2-univ.jp/sp/index.php?t=650120">Today's menu →</Link>
           </button>
