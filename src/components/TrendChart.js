@@ -6,7 +6,7 @@ import { Chart as ChartJS, BarController, BarElement, LinearScale, Title, Catego
 ChartJS.register(BarController, BarElement, LinearScale, CategoryScale, Title);
 
 const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Pink'],
+  labels: ['11:30', '11:45', '12:00', '12:15', '12:30', '12:45', '13:00'],
   datasets: [{
     label: 'My First Dataset',
     data: [12, 48, 72, 76, 56, 24, 12],
