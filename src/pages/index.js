@@ -41,7 +41,7 @@ const IndexPage = () => (
         </div>
         <div>
           <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-            <Link to="/blog">Today's menu →</Link>
+            <Link to="https://west2-univ.jp/sp/index.php?t=650120">Today's menu →</Link>
           </button>
         </div>
       </div>
