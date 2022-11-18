@@ -1,6 +1,5 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
 import CrowdChart from '../components/CrowdChart';
 import TrendChart from '../components/TrendChart';
 
@@ -8,15 +7,26 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 import LiveIcon from "../images/live-icon.svg"
-import Exclamation from "../images/Exclamation.svg"
+import Exclamation from "../images/exclamation.svg"
+import Spectrum from "../images/spectrum.svg" 
 
 const IndexPage = () => (
   <Layout>
     <div className="grid grid-cols-1 md:grid-cols-5 p-4 md:py-24 md:px-8 gap-2 md:gap-16 lg:gap-24 items-end">
       <div className="col-span-3 px-8 py-16 md:py-0">
-        <CrowdChart />
+        <div className="relative flex items-center justify-center">
+          <div className="absolute grid justify-center">
+            <span className="flex text-9xl font-bold justify-center">4</span>
+            <img
+              className="h-3"
+              src={Spectrum}
+              alt="spectrum"
+            />
+          </div>
+          <CrowdChart/>
+        </div>
       </div>
-      <div className="col-span-2 grid grid-cols-1 p-4 gap-2 content-start">
+      <div className="col-span-2 relative grid grid-cols-1 p-4 gap-2 content-start">
         <div className="flex gap-1 p-2 bg-yellow-200 rounded-lg items-center">
           <img
             className="inline h-4"

@@ -25,7 +25,7 @@ export const data = {
 
 const PieChart = () => {
  return (
-   <div className=''>
+   <div className='flex-1'>
      <Doughnut data={data} className=''/>
    </div>
  );
