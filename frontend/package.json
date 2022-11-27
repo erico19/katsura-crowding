@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "katsura-crowding",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Crowding research @ITS Lab Kyoto University",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Ridwan Satria",
   "dependencies": {
     "chart.js": "^4.0.1",
     "gatsby": "^4.24.6",
