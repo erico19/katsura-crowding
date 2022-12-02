@@ -4,7 +4,7 @@
   "description": "Crowding research @ITS Lab Kyoto University",
   "version": "0.1.0",
   "author": "Ridwan Satria",
-  "proxy":"http://127.0.0.1:5000/",
+  "proxy": "http://127.0.0.1:5000/",
   "dependencies": {
     "chart.js": "^4.0.1",
     "gatsby": "^4.24.6",

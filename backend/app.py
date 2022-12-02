@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_cors import CORS
 import numpy as np
 import pandas as pd
 import requests
@@ -8,6 +9,7 @@ import datetime
 x = datetime.datetime.now()
 
 app = Flask(__name__)
+CORS(app)
 
 response = requests.get('http://153.127.3.13/katsura/csv/5min/1215.csv', auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
 df = pd.read_csv(response.raw)
@@ -22,15 +24,15 @@ def index():
 def hello_world():
   return "<p>Hello, World! {{ name }}</p>"
 
-@app.route("/data")
+@app.route("/api")
 def katsura_data():
   return {
     'Name':"geek", 
     "Age":"22",
     "Date":x, 
-    "programming":"python",
+    "programming":"python javascript",
     "programming2": name
     }
 
 if __name__ == "__main__":
-  app.run(host='localhost', debug=True)
+  app.run(debug=True)
