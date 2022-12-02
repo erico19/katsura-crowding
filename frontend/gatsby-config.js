@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Katsura Cafeteria Crowding`,
+    author: `ridwan`,
     description: `Crowding research @ITS Lab Kyoto University`,
   },
   plugins: [

@@ -16,9 +16,9 @@ const IndexPage = () => (
       <div className="col-span-3 px-8 py-16 md:py-0">
         <div className="relative flex items-center justify-center">
           <div className="absolute grid justify-center">
-            <span className="flex text-9xl font-bold justify-center">4</span>
+            <span className="flex text-9xl md:text-[180px] lg:text-[240px] font-bold justify-center">4</span>
             <img
-              className="h-3"
+              className="h-3 md:h-4 lg:h-6"
               src={Spectrum}
               alt="spectrum"
             />
@@ -42,7 +42,7 @@ const IndexPage = () => (
           <TrendChart />
           <div className="flex gap-1 items-center">
             <img
-              className="inline h-3"
+              className="inline h-4"
               src={LiveIcon}
               alt="Live"
             />
