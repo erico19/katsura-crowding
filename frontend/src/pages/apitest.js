@@ -5,10 +5,8 @@ function App() {
 	// usestate for setting a javascript
 	// object for storing and using data
 	const [data, setdata] = useState({
-		name: "",
-		age: 0,
-		date: "",
-		programming: "",
+		time: "",
+		count: 0,
 	});
 
 	// Using useEffect for single rendering
@@ -19,10 +17,8 @@ function App() {
 			res.json().then((data) => {
 				// Setting a data from api
 				setdata({
-					name: data.Name,
-					age: data.Age,
-					date: data.Date,
-					programming: data.programming,
+					time: data.time,
+					count: data.count
 				});
 			})
 		);
@@ -33,10 +29,8 @@ function App() {
 			<header className="App-header">
 				<h1>React and flask</h1>
 				{/* Calling a data from setdata for showing */}
-				<p>{data.name}</p>
-				<p>{data.age}</p>
-				<p>{data.date}</p>
-				<p>{data.programming}</p>
+				<p>{data.time}</p>
+				<p>{data.count}</p>
 
 			</header>
 		</div>

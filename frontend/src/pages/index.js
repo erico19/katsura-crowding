@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import CrowdChart from '../components/CrowdChart';
-import TrendChart from '../components/TrendChart';
+import TrendChart from '../components/TrendChart3';
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -12,8 +12,10 @@ import Spectrum from "../images/spectrum.svg"
 
 const IndexPage = () => (
   <Layout>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    
     <div className="grid grid-cols-1 md:grid-cols-5 p-4 md:py-24 md:px-8 gap-2 md:gap-16 lg:gap-24 items-end">
-      <div className="col-span-3 px-8 py-16 md:py-0">
+      {/* <div className="col-span-3 px-8 py-16 md:py-0">
         <div className="relative flex items-center justify-center">
           <div className="absolute grid justify-center">
             <span className="flex text-9xl md:text-[180px] lg:text-[240px] font-bold justify-center">4</span>
@@ -25,8 +27,8 @@ const IndexPage = () => (
           </div>
           <CrowdChart/>
         </div>
-      </div>
-      <div className="col-span-2 relative grid grid-cols-1 p-4 gap-2 content-start">
+      </div> */}
+      <div className="col-span-5 relative grid grid-cols-1 p-4 gap-2 content-start">
         <div className="flex gap-1 p-2 bg-yellow-200 rounded-lg items-center">
           <img
             className="inline h-4"
@@ -38,7 +40,7 @@ const IndexPage = () => (
         </div>
 
         <div className="p-4 bg-gray-100 rounded-lg">
-          <h2 className="text-md text-gray-500 font-medium">Monday, October 31st 2022</h2>
+          <h2 className="text-md text-gray-500 font-medium">Monday, December 5th 2022</h2>
           <TrendChart />
           <div className="flex gap-1 items-center">
             <img
