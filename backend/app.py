@@ -5,8 +5,6 @@ import pandas as pd
 import requests
 from requests.auth import HTTPBasicAuth
 import datetime
-  
-x = datetime.datetime.now()
 
 app = Flask(__name__)
 CORS(app)
@@ -29,14 +27,6 @@ x = datetime.datetime.now()
 
 time = roundTime(x)
 count = len(df)
-
-@app.route('/')
-def index():
-    return render_template('index.html', variable=len(df))
-
-@app.route("/hello")
-def hello_world():
-  return "<p>Hello, World! {{ name }}</p>"
 
 @app.route("/api")
 def katsura_data():
