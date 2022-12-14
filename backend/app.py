@@ -9,6 +9,7 @@ import datetime
 app = Flask(__name__)
 CORS(app)
 
+# Define function to round the time
 def roundTime(dt=None, roundTo=5*60):
    """Round a datetime object to any time lapse in seconds
    dt : datetime.datetime object, default now.
@@ -20,23 +21,26 @@ def roundTime(dt=None, roundTo=5*60):
    rounding = (seconds+roundTo/2) // roundTo * roundTo
    return dt + datetime.timedelta(0,rounding-seconds,-dt.microsecond)
 
-response = requests.get('http://153.127.3.13/katsura/csv/5min/1215.csv', auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
+# Generate the time variable
+today = datetime.datetime.now()
+time = roundTime(today)
+
+timeCode = time.strftime("%H") + time.strftime("%M")
+dataURL = 'http://153.127.3.13/katsura/csv/5min/' + timeCode + '.csv'
+
+# Import CSV file from the server
+response = requests.get(dataURL, auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
 df = pd.read_csv(response.raw)
 
-x = datetime.datetime.now()
-
-time = roundTime(x)
+# Count the total number of AMAC adresses
 count = len(df)
 
 @app.route("/api")
 def katsura_data():
   return {
-    "time": "12:15:00",
+    "time": time.strftime("%X"),
     "count": count
     }
 
 if __name__ == "__main__":
   app.run(debug=True)
-
-
-# "time": time.strftime("%X"),

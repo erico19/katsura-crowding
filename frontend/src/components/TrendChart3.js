@@ -33,7 +33,7 @@ function App() {
 
   const liveData = JSON.parse(JSON.stringify(myJson));
 
-  var objIndex = liveData.findIndex((obj => obj.time == "12:55:00"));
+  var objIndex = liveData.findIndex((obj => obj.time == "12:45:00"));
 
   liveData[objIndex].count = vdata.count
 
@@ -105,12 +105,6 @@ function App() {
 
 	return (
 		<div className="App">
-			<header className="App-header">
-				<h1>React and flask</h1>
-				{/* Calling a data from setdata for showing */}
-				<p>{vdata.time}</p>
-				<p>{vdata.count}</p>
-			</header>
       <div>
         <Chart 
           type='bar'
