@@ -1,14 +1,14 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import CrowdChart from '../components/CrowdChart';
+import Notice from '../components/Notice';
 import TrendChart from '../components/TrendChart3';
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 import LiveIcon from "../images/live-icon.svg"
-import Exclamation from "../images/exclamation.svg"
-import Spectrum from "../images/spectrum.svg" 
+
+var todayDate = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"long", day:"numeric"}) 
 
 const IndexPage = () => (
   <Layout>
@@ -29,18 +29,10 @@ const IndexPage = () => (
         </div>
       </div> */}
       <div className="col-span-5 relative grid grid-cols-1 p-4 gap-2 content-start">
-        <div className="flex gap-1 p-2 bg-yellow-200 rounded-lg items-center">
-          <img
-            className="inline h-4"
-            src={Exclamation}
-            alt="Exclamation"
-          />
-          <p className="text-xs text-gray-800 font-medium">Expected to be less crowded in 30 minutes</p>
-          
-        </div>
+        <Notice />
 
-        <div className="p-4 bg-gray-100 rounded-lg">
-          <h2 className="text-md text-gray-500 font-medium">Monday, December 5th 2022</h2>
+        <div className="grid gap-2 p-4 bg-gray-100 rounded-lg">
+          <h2 className="text-md text-gray-500 font-medium">{ todayDate }</h2>
           <TrendChart />
           <div className="flex gap-1 items-center">
             <img
