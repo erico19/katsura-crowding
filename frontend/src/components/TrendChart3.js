@@ -53,14 +53,14 @@ function App() {
       label: 'Historical Trend',
       data: data,
       backgroundColor: [
-        '#E5E7EB'
+        '#00000066'
       ],
       xAxisID: "bar-x-axis1",
     },  {
       label: 'Live Data',
       data: dataLive,
       backgroundColor: [
-        '#FF0000'
+        '#FF000066'
       ],
       xAxisID: "bar-x-axis2",
     }
@@ -69,16 +69,16 @@ function App() {
 
   var options = {
     scales: {
-      xAxes: [{
+      x: [{
         stacked: false,
         id: "bar-x-axis1",
-        barThickness: 30,
+        barThickness: 10,
         display: false,
       }, {
         display: false,
         stacked: false,
         id: "bar-x-axis2",
-        barThickness: 70,
+        barThickness: 10,
         // these are needed because the bar controller defaults set only the first x axis properties
         type: 'category',
         categoryPercentage: 0.8,
@@ -87,17 +87,10 @@ function App() {
           offsetGridLines: true
         },
         offset: true,
-        grid: {
-          display: false
-        }
       }],
-      yAxes: [{
-        stacked: false,
-        grid: {
-          display: false
-        },
+      y: {
         display: false,
-      }]
+     }
 
     }
   };
