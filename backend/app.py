@@ -10,7 +10,7 @@ from datetime import timedelta
 app = Flask(__name__)
 CORS(app)
 
-# Define function to round the time
+# Define function to round the time ------------------------------------------------------------------------
 def roundTime(dt=None, roundTo=5*60):
    """Round a datetime object to any time lapse in seconds
    dt : datetime.datetime object, default now.
@@ -22,21 +22,21 @@ def roundTime(dt=None, roundTo=5*60):
    rounding = (seconds+roundTo/2) // roundTo * roundTo
    return dt + datetime.timedelta(0,rounding-seconds,-dt.microsecond)
 
-# Generate the time variable
+# Generate the time variable -------------------------------------------------------------------------------
 today = datetime.datetime.now()
 time = roundTime(today)
 
 timeCode = time.strftime("%H") + time.strftime("%M")
 dataURL = 'http://153.127.3.13/katsura/csv/5min/' + timeCode + '.csv'
 
-# Import CSV file from the server
+# Import CSV file from the server --------------------------------------------------------------------------
 response = requests.get(dataURL, auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
 df = pd.read_csv(response.raw)
 
-# Count the total number of AMAC adresses
+# Count the total number of AMAC adresses ------------------------------------------------------------------
 count = len(df)
 
-# Function to find average reading
+# Function to find average reading -------------------------------------------------------------------------
 def find_average_reading(date, data, location, no_prev_days=3):
     ''' Data should be in form of a DataFrame'''
     
@@ -100,17 +100,17 @@ def wifi_popular_times(date, data, location='CafEntr', no_prev_days=3):
     elif percent_diff > 0.15:
       return 3
     elif percent_diff < -0.05 and percent_diff >= -0.15:
-      return "4"
+      return 4
     elif percent_diff < -0.15:
-      return "5"
+      return 5
 
 
 
-# Read in the required csv file and format that columns appropriately
+# Read in the required csv file and format that columns appropriately ----------------------------
 df = pd.read_csv('Weekdays15Min_1.csv')
 df['date'] = pd.to_datetime(df['date'])
 
-# Test service level api 
+# Test service level api -------------------------------------------------------------------------
 location = 'CafEntr'
 sample_date = df.date[1000]
 service_level = wifi_popular_times(sample_date, df, location)
