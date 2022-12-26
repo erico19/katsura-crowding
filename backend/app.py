@@ -127,7 +127,7 @@ def katsura_data():
 @app.route("/service-level-api")
 def service():
   return {
-    "service-level": service_level,
+    "serviceLevel": service_level,
     }
 
 if __name__ == "__main__":

@@ -2,6 +2,7 @@ import * as React from "react"
 import { Link } from "gatsby"
 import Notice from '../components/Notice';
 import TrendChart from '../components/TrendChart3';
+import ServiceStatus from '../components/ServiceStatus';
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -40,7 +41,8 @@ const IndexPage = () => (
               src={LiveIcon}
               alt="Live"
             />
-            <span className="text-sm text-gray-800 font medium">Busier than usual</span>
+            <span className="text-sm text-gray-800 font medium"><ServiceStatus /></span>
+            
           </div>
         </div>
         <div className="flex">
