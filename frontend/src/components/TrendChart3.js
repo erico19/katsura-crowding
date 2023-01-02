@@ -7,33 +7,26 @@ import myJson from '../data/historical-trend-data/December-Tue.json';
 ChartJS.register(BarController, BarElement, LinearScale, CategoryScale, Title);
 
 function App() {
-	// usestate for setting a javascript
-	// object for storing and using data
-	const [vdata, setdata] = useState({
+	const [vdata, setData] = useState({
 		time: "",
 		count: 0,
 	});
 
 	// Using useEffect for single rendering
 	useEffect(() => {
-		// Using fetch to fetch the api from
-		// flask server it will be redirected to proxy
-		fetch("http://127.0.0.1:5000/api").then((res) =>
-			res.json().then((vdata) => {
-				// Setting a data from  (obj => obj.time == "12:55:00")
-				setdata({
+		fetch("http://127.0.0.1:5000/api")
+    .then(res =>res.json())
+    .then(vdata => {
+				setData({
 					time: vdata.time,
 					count: vdata.count
 				});
-			})
-		);
+			});
 	}, []);
-
-  console.log(vdata)
 
   const liveData = JSON.parse(JSON.stringify(myJson));
 
-  var objIndex = liveData.findIndex((obj => obj.time == "12:45:00"));
+  var objIndex = liveData.findIndex((obj => obj.time == "13:45:00"));
 
   liveData[objIndex].count = vdata.count
 

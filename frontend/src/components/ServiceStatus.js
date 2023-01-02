@@ -1,44 +1,39 @@
 import React, { useState, useEffect } from "react";
 
-function ServiceStatus() {
-	const [vdata, setdata] = useState({
-		serviceLevel: 0,
-	});
+function ServiceStatus({count, average_count}) {
+	const [status, setStatus] = useState();
 
 	useEffect(() => {
-		fetch("http://127.0.0.1:5000/service-level-api").then((res) =>
-			res.json().then((vdata) => {
-				setdata({
-					serviceLevel: vdata.serviceLevel,
-				});
-			})
+		fetch(`http://127.0.0.1:5000/service_status?count=${count}&average_count=${average_count}`)
+		.then((res) => res.json()
+		.then((json) => setStatus(json))
 		);
 	}, []);
 
-  console.log(vdata.serviceLevel)
+	console.log(`http://127.0.0.1:5000/service_status?count=${count}&average_count=${average_count}`)
+  console.log("Service status: ", status)
 
-  if (vdata.serviceLevel ==  5) {
+  if (status == 5) {
     return (
 			"Much less busier than usual."
     )
-  } else if (vdata.serviceLevel ==  4) {
+  } else if (status == 4) {
     return (
 			"Less busier than usual."
     )
-  } else if (vdata.serviceLevel ==  3) {
+  } else if (status == 3) {
     return (
 			"Much busier than usual."
     )
-  } else if (vdata.serviceLevel ==  2) {
+  } else if (status == 2) {
     return (
 			"Busier than usual."
     )
-  } else if (vdata.serviceLevel ==  1) {
+  } else if (status == 1) {
     return (
-			"As busy as it gets."
+			"As busy as usual."
     )
   } 
- };
- 
+ }; 
  
  export default ServiceStatus;
