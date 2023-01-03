@@ -3,6 +3,7 @@ from flask_cors import CORS
 import numpy as np
 import pandas as pd
 import requests
+import os
 import json
 from requests.auth import HTTPBasicAuth
 import datetime
@@ -25,10 +26,14 @@ def roundTime(dt, roundTo=15):
 
 
 # Read in the required csv file and format that columns appropriately ----------------------------
-df = pd.read_csv('historical_averages.csv')
-df['Time'] = pd.to_datetime(df['Time'])
-df['Time'] = df['Time'].apply(lambda x: x.time())
-# print(df)
+historical_averages = {}
+files = os.listdir("historical_averages")
+for file in files:
+    df = pd.read_csv("historical_averages/"+file)
+    df['Time'] = pd.to_datetime(df['Time'])
+    df['Time'] = df['Time'].apply(lambda x: x.time())
+    historical_averages[file] = df
+    # print(df)
 
 # Keep a dictionary of the days of the week to be used in getting the 
 # corresponding averages
@@ -37,6 +42,29 @@ week_days = {0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday"}
 # This variable will store the preloaded live data
 LIVE_DATA = [pd.DataFrame({})]
 TIME = [datetime.datetime.now()]
+SENSOR = "AMPM18-KJ016"
+
+@app.route("/day_average", defaults={'sensor':SENSOR})
+@app.route("/day_average/<sensor>")
+def get_day_average(sensor):
+    df = historical_averages[sensor+".csv"]
+    time = datetime.datetime.now()
+    day = time.weekday()
+
+    try:
+        day = week_days[int(day)]
+        message = "SUCCESS"
+        day_average = df[['Time', day]]
+        day_average = day_average.rename(columns={"Time":"time", day:"count"})
+        data = day_average.to_json(orient='records')
+        data = json.loads(data)
+    except:
+        message = "INVALID_DATE"
+        data = {}
+
+    TIME[0] = time
+    
+    return {"message":message, "data":data, "sensor": sensor}
 
 
 @app.route("/service_status")
@@ -58,27 +86,6 @@ def service_status():
       return '4'
     elif percent_diff < -0.15:
       return '5'
-
-
-@app.route("/day_average")
-def get_day_average():
-    time = datetime.datetime.now()
-    day = time.weekday()
-
-    try:
-        day = week_days[int(day)]
-        message = "SUCCESS"
-        day_average = df[['Time', day]]
-        day_average = day_average.rename(columns={"Time":"time", day:"count"})
-        data = day_average.to_json(orient='records')
-        data = json.loads(data)
-    except:
-        message = "INVALID_DATE"
-        data = {}
-
-    TIME[0] = time
-    
-    return {"message":message, "data":data}
 
 
 def get_live_data(time):
@@ -129,7 +136,7 @@ sched.add_job(test_scheduler, 'interval', seconds=50, args=[LIVE_DATA])
 sched.add_job(get_aggregated_data,'interval', minutes=1, args=[LIVE_DATA])
 
 
-@app.route("/service-level-api", defaults={'sensor':'AMPM18-KJ016'})
+@app.route("/service-level-api", defaults={'sensor':SENSOR})
 @app.route("/service-level-api/<sensor>")
 def service_level(sensor, live_data=LIVE_DATA, time=TIME):
     # sensor = None
