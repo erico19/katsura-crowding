@@ -58,7 +58,12 @@ const PopularityChart = ({ location }) => {
       return label;
     });
 
-    const bins = labels.map(label => label[0])
+    const bins = hdata.data.map(function(label) {
+      label = label.time;
+      label = label.slice(0,5);
+      return label;
+    });
+
     console.log("Labels: ", labels)
     console.log("bins: ", bins)
     
@@ -67,13 +72,13 @@ const PopularityChart = ({ location }) => {
     });
 
     var liveData = Array(labels.length).fill(0);
-    var timeNow = convertTimeToString(popularity.time);
+    var timeNow = popularity.time
+    var i = bins.indexOf(timeNow);
+    console.log("i: ", i)
+
+    timeNow = convertTimeToString(timeNow);
     timeNow = timeNow.split(" ")[0]
     console.log("TimeNow: ", timeNow)
-    
-    var i = bins.indexOf(timeNow);
-    // if (i == 0){i = -1}
-    console.log("i: ", i)
     liveData[i] = popularity.count;
     // liveData[i] = 800;
     console.log("Live data: ", liveData)
