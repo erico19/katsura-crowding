@@ -12,7 +12,7 @@ const Header = () => (
           alt="Logo"
         />
         <Link to="/">
-          <h1 style={{fontFamily: "sans-serif", fontSize: "32px", fontWeight: "bold"}} className="flex text-white text-center">Katsura Main Student Cafeteria</h1>   
+          <h1 style={{fontFamily: "Helvetica", fontSize: "32px", fontWeight: "bold"}} className="flex text-white text-center">Katsura Main Student Cafeteria</h1>   
         </Link>
       </div>
     </div>
