@@ -28,10 +28,10 @@ const PopularityChart = ({ location }) => {
   useEffect(() => {
     console.log("Fetching data...")
     fetch(`http://127.0.0.1:5000/day_average/${location}`)
-    .then(res => res.json())
-    .then(json => setData(json))
+     .then(res => res.json())
+     .then(json => setData(json))
+     .catch(error => console.error(error))
   }, [location])
-
   
   useEffect(() => {
     console.log("Counting users...");
