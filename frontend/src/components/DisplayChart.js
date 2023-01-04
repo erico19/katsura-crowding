@@ -12,14 +12,14 @@ function MyDropdown() {
   return (
     <div>
       <select value={selectedOption} onChange={handleChange}>
-        <option value="AMPM18-KJ008">AMPM18-KJ008</option>
-        <option value="AMPM18-KJ009">AMPM18-KJ009</option>
-        <option value="AMPM18-KJ010">AMPM18-KJ010</option>
-        <option value="AMPM18-KJ011">AMPM18-KJ011</option>
-        <option value="AMPM18-KJ012">AMPM18-KJ012</option>
-        <option value="AMPM18-KJ013">AMPM18-KJ013</option>
-        <option value="AMPM18-KJ014">AMPM18-KJ014</option>
-        <option value="AMPM18-KJ015">AMPM18-KJ015</option>
+        <option value="AMPM18-KJ008">C Cluster Admnistration Office</option>
+        <option value="AMPM18-KJ009">C1 Entrance</option>
+        <option value="AMPM18-KJ010">Inside Main Cafeteria</option>
+        <option value="AMPM18-KJ011">B Cluster Administration</option>
+        <option value="AMPM18-KJ012">Katsura Main Library</option>
+        <option value="AMPM18-KJ013">A1 Entrance</option>
+        <option value="AMPM18-KJ014">A2 Park Mae</option>
+        <option value="AMPM18-KJ015">Bakery</option>
         <option value="AMPM18-KJ016">Cafeteria Entrance</option>
         <option value="AMPM18-KJ017">Cafeteria Exit</option>
       </select>
