@@ -12,7 +12,7 @@ const Notice = ({ location }) => {
   if (notice_sensors.includes(location)){
     message = "Cafeteria Soliel is open for lunch from 11:00AM to 2:00PM"
   } else if (location == "AMPM18-KJ008") {
-    message = "This is sensor  AMPM18-KJ017"
+    message = "C CLUSTER Admnistration Office is open from 9:00AM TO 5:00PM"
   }
 
   console.log("Message: ", message)
