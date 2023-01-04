@@ -7,6 +7,7 @@ import os
 import json
 from requests.auth import HTTPBasicAuth
 import datetime
+import pytz
 from datetime import timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -14,6 +15,9 @@ app = Flask(__name__)
 CORS(app)
 
 sched = BackgroundScheduler(daemon=True)
+
+# Set default timezone to Japan Time Zone
+jst = pytz.timezone('Asia/Tokyo')
 
 # Define function to round the time ------------------------------------------------------------------------
 def roundTime(dt, roundTo=15):
@@ -42,14 +46,14 @@ week_days = {0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday"}
 
 # This variable will store the preloaded live data
 LIVE_DATA = [pd.DataFrame({})]
-TIME = [datetime.datetime.now()]
+TIME = [datetime.datetime.now(jst)]
 SENSOR = "AMPM18-KJ016"
 
 @app.route("/day_average", defaults={'sensor':SENSOR})
 @app.route("/day_average/<sensor>")
 def get_day_average(sensor):
     df = historical_averages[sensor+".csv"]
-    time = datetime.datetime.now()
+    time = datetime.datetime.now(jst)
     day = time.weekday()
 
     try:
@@ -96,6 +100,7 @@ def get_live_data(time):
     response = requests.get(dataURL, auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
     df = pd.read_csv(response.raw)
     df['TIMESTAMP'] = pd.to_datetime(df['TIMESTAMP'])
+    df['TIMESTAMP'] = df['TIMESTAMP'].dt.tz_localize("Asia/Tokyo")
 
     return df
 
