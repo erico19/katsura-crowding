@@ -29,6 +29,7 @@ def roundTime(dt, roundTo=15):
 historical_averages = {}
 files = os.listdir("historical_averages")
 for file in files:
+    print("File: ", file)
     df = pd.read_csv("historical_averages/"+file)
     df['Time'] = pd.to_datetime(df['Time'])
     df['Time'] = df['Time'].apply(lambda x: x.time())
@@ -99,7 +100,7 @@ def get_live_data(time):
     return df
 
 
-def get_aggregated_data(live_data, aggregate=15, time=TIME):
+def get_aggregated_data(live_data, aggregate=60, time=TIME):
     time = time[0]
     time = roundTime(time, roundTo=5)
     print("Time: ", time)
@@ -136,13 +137,23 @@ sched.add_job(test_scheduler, 'interval', seconds=50, args=[LIVE_DATA])
 sched.add_job(get_aggregated_data,'interval', minutes=1, args=[LIVE_DATA])
 
 
+CAFE_SENSORS = ["AMPM18-KJ010", "AMPM18-KJ016", "AMPM18-KJ017"]
+
 @app.route("/service-level-api", defaults={'sensor':SENSOR})
 @app.route("/service-level-api/<sensor>")
 def service_level(sensor, live_data=LIVE_DATA, time=TIME):
-    # sensor = None
-    df = live_data[0]
     time = TIME[0]
-    time = roundTime(time, roundTo=15)
+
+    df = live_data[0]
+
+    if sensor in CAFE_SENSORS:
+        start = roundTime(time, roundTo=5)   
+        end = start - timedelta(minutes=15)
+        df = df[df['TIMESTAMP'] >= end]
+        time = roundTime(time, roundTo=15)
+    else:
+        time = roundTime(time, roundTo=60)
+
     df,count = count_users(df, sensor=sensor)
     print("Count: ", count)
     
