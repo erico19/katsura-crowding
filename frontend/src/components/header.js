@@ -12,7 +12,7 @@ const Header = () => (
           alt="Logo"
         />
         <Link to="/">
-          <h1 className="flex text-white text-2xl font-bold">Katsura Cafeteria</h1>
+          <h1 className="flex text-white text-3xl font-bold text-center">Katsura Main Student Cafeteria</h1>
         </Link>
       </div>
     </div>
