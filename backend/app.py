@@ -158,7 +158,7 @@ def service_level(sensor, live_data=LIVE_DATA, time=TIME):
     print("Count: ", count)
     
     time_to_display = time.strftime('%A, %B %d, %Y')
-    time = "{}:{:02d}".format(time.hour, time.minute)
+    time = "{:02d}:{:02d}".format(time.hour, time.minute)
     print("Returned time: ", time)
 
     # return df.to_html()
