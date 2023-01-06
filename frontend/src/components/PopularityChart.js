@@ -4,18 +4,17 @@ import { Chart as ChartJS, BarController, BarElement, LinearScale, Title, Catego
 
 import LiveIcon from "../images/live-icon.svg"
 import ServiceStatus from "../components/ServiceStatus"
-import Notice from '../components/Notice';
 
-import DropDown from "../components/SelectLocation"
 
 ChartJS.register(BarController, BarElement, LinearScale, CategoryScale, Title);
 
-function PopularityChart() {
+const PopularityChart = ({ location }) => {
   const current = new Date()
   const [selectedOption, setSelectedOption] = useState('');
 	const [hdata, setData] = useState({
                                 "message": null,
-                                "data": {}
+                                "data": {},
+                                "sensor": null,
                               });
 
   const [popularity, setPopularity] = useState({
@@ -28,20 +27,21 @@ function PopularityChart() {
 
   useEffect(() => {
     console.log("Fetching data...")
-    fetch(`http://127.0.0.1:5000/day_average`)
-    .then(res => res.json())
-    .then(json => setData(json))
-  }, [])
-
+    fetch(`http://127.0.0.1:5000/day_average/${location}`)
+     .then(res => res.json())
+     .then(json => setData(json))
+     .catch(error => console.error(error))
+  }, [location])
   
   useEffect(() => {
     console.log("Counting users...");
-    fetch(`http://127.0.0.1:5000/service-level-api`)
+    fetch(`http://127.0.0.1:5000/service-level-api/${location}`)
     .then(res => res.json())
     .then(json => setPopularity(json))
-  }, [])
+  }, [location])
 
 
+  console.log(`http://127.0.0.1:5000/day_average/${location}`)
   console.log("hdata: ", hdata)
   console.log("Popularity: ", popularity)
 
@@ -58,7 +58,12 @@ function PopularityChart() {
       return label;
     });
 
-    const bins = labels.map(label => label[0])
+    const bins = hdata.data.map(function(label) {
+      label = label.time;
+      label = label.slice(0,5);
+      return label;
+    });
+
     console.log("Labels: ", labels)
     console.log("bins: ", bins)
     
@@ -67,13 +72,13 @@ function PopularityChart() {
     });
 
     var liveData = Array(labels.length).fill(0);
-    var timeNow = convertTimeToString(popularity.time);
+    var timeNow = popularity.time
+    var i = bins.indexOf(timeNow);
+    console.log("i: ", i)
+
+    timeNow = convertTimeToString(timeNow);
     timeNow = timeNow.split(" ")[0]
     console.log("TimeNow: ", timeNow)
-    
-    var i = bins.indexOf(timeNow) + 1;
-    if (i == 0){i = -1}
-    console.log("i: ", i)
     liveData[i] = popularity.count;
     // liveData[i] = 800;
     console.log("Live data: ", liveData)
@@ -152,8 +157,6 @@ function PopularityChart() {
 
   return (
     <div>
-      <DropDown />
-      <Notice/>
       <div className="grid gap-2 p-4 bg-gray-100 rounded-lg">
         <h2 className="text-md text-gray-500 font-medium" style={{color:'black'}}>{dateToDisplay}</h2>
         <div>

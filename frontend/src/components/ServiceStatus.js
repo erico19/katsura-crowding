@@ -8,7 +8,7 @@ function ServiceStatus({count, average_count}) {
 		.then((res) => res.json()
 		.then((json) => setStatus(json))
 		);
-	}, []);
+	}, [count]);
 
 	console.log(`http://127.0.0.1:5000/service_status?count=${count}&average_count=${average_count}`)
   console.log("Service status: ", status)
