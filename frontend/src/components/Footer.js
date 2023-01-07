@@ -20,8 +20,6 @@ const Footer = () => {
             <Link to="/acknowledgements" className="text-center">Acknowledgments.</Link>
           </div>
         </div>
-        
-        
       </main>
     </body>
   )

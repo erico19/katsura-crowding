@@ -54,7 +54,7 @@ SENSOR = "AMPM18-KJ016"
 def get_day_average(sensor):
     df = historical_averages[sensor+".csv"]
     time = datetime.datetime.now(jst)
-    day = time.weekday()
+    day = 0
 
     try:
         day = week_days[int(day)]
