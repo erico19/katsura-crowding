@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, BarController, BarElement, LinearScale, Title, CategoryScale } from 'chart.js';
 
 import LiveIcon from "../images/live-icon.svg"
-import ServiceStatus from "../components/ServiceStatus"
+import ServiceStatus from "/src/components/ServiceStatus.js"
 
 
 ChartJS.register(BarController, BarElement, LinearScale, CategoryScale, Title);
@@ -101,6 +101,7 @@ const PopularityChart = ({ location }) => {
           barPercentage: 1,
           backgroundColor: live_background_colors,
           borderWidth: 1,
+          borderRadius: 5,
         },
         {
           label: 'Historical Average',
@@ -108,6 +109,7 @@ const PopularityChart = ({ location }) => {
           barPercentage: 1,
           backgroundColor: hist_background_colors,
           borderWidth: 1,
+          borderRadius: 5,
         },
       ]
     };
