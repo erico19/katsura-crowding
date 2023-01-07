@@ -2,11 +2,21 @@ import * as React from 'react';
 
 import Exclamation from "../images/exclamation.svg"
 
-var today = new Date();
-var hourNow = today.getHours();
+const notice_sensors = ["AMPM18-KJ010", "AMPM18-KJ016", "AMPM18-KJ017"];
 
-const Notice = () => {
-  if (hourNow > 14 || hourNow < 11) {
+const Notice = ({ location }) => {
+  const time = new Date();
+  var hourNow = time.getHours();
+  var message = null;
+
+  if (notice_sensors.includes(location)){
+    message = "Cafeteria Soleil is open for lunch from 11:00AM to 2:00PM"
+  } else if (location == "AMPM18-KJ008") {
+    message = "C Cluster Admnistration Office is open from 9:00AM TO 5:00PM"
+  }
+
+  console.log("Message: ", message)
+  if (message != null) {
     return (
       <div className="flex gap-1 p-2 bg-yellow-200 rounded-lg items-center">
         <img
@@ -14,7 +24,7 @@ const Notice = () => {
           src={Exclamation}
           alt="Exclamation"
         />
-        <p className="text-xs text-gray-800 font-medium">Cafeteria Soleil is open from 11:00 to 14:00</p>
+        <p className="text-xs text-gray-800 font-medium">{message}</p>
       </div>
     )
   } else {

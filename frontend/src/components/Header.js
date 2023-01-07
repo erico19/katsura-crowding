@@ -7,12 +7,12 @@ const Header = () => (
     <div className="p-4 md:p-8 bg-primary">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         <img
-          className="flex w-16"
+          className="flex w-16 md:w-18"
           src={kyodaiLogo}
           alt="Logo"
         />
         <Link to="/">
-          <h1 className="flex text-white text-2xl font-bold">Katsura Cafeteria</h1>
+          <h1 className="flex text-white text-center text-xl md:text-3xl font-bold">Katsura Main Cafeteria</h1>   
         </Link>
       </div>
     </div>

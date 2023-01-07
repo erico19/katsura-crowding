@@ -1,134 +1,180 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_cors import CORS
 import numpy as np
 import pandas as pd
 import requests
+import os
+import json
 from requests.auth import HTTPBasicAuth
 import datetime
+import pytz
 from datetime import timedelta
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 CORS(app)
 
+sched = BackgroundScheduler(daemon=True)
+
+# Set default timezone to Japan Time Zone
+jst = pytz.timezone('Asia/Tokyo')
+
 # Define function to round the time ------------------------------------------------------------------------
-def roundTime(dt=None, roundTo=5*60):
-   """Round a datetime object to any time lapse in seconds
-   dt : datetime.datetime object, default now.
-   roundTo : Closest number of seconds to round to, default 1 minute.
-   Author: Thierry Husson 2012 - Use it as you want but don't blame me.
-   """
-   if dt == None : dt = datetime.datetime.now()
-   seconds = (dt.replace(tzinfo=None) - dt.min).seconds
-   rounding = (seconds+roundTo/2) // roundTo * roundTo
-   return dt + datetime.timedelta(0,rounding-seconds,-dt.microsecond)
+def roundTime(dt, roundTo=15):
+    ''' This function ensures that the time is in blocks of 'roundTo' seconds '''
+    dt = dt - datetime.timedelta(minutes=dt.minute % roundTo,
+                                seconds=dt.second,
+                                microseconds=dt.microsecond)
 
-# Generate the time variable -------------------------------------------------------------------------------
-today = datetime.datetime.now()
-time = roundTime(today)
-
-timeCode = time.strftime("%H") + time.strftime("%M")
-dataURL = 'http://153.127.3.13/katsura/csv/5min/' + timeCode + '.csv'
-
-# Import CSV file from the server --------------------------------------------------------------------------
-response = requests.get(dataURL, auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
-df = pd.read_csv(response.raw)
-
-# Count the total number of AMAC adresses ------------------------------------------------------------------
-count = len(df)
-
-# Function to find average reading -------------------------------------------------------------------------
-def find_average_reading(date, data, location, no_prev_days=3):
-    ''' Data should be in form of a DataFrame'''
-    
-    curr_reading = df[df.date==date]
-    curr_wifi_value = curr_reading[location].values[0]
-
-    i = 0
-    sum = 0
-    count = 0
-    while True:
-        i += 1
-        prev_date = date - timedelta(days=7*i)
-        prev_reading = df[df.date==prev_date]
-
-        # Stop if there are no more days left
-        if len(prev_reading) == 0:
-            break
-
-        # Ignore days that are not lecture days
-        is_lect_day = prev_reading.Lect_day.values[0]
-        if not is_lect_day:
-            continue
-
-        # Pick out reading at the required location    
-        reading = prev_reading[location].values[0]
-        sum += reading
-        count += 1
-        
-        # Stop if you get the required number of days
-        if count == no_prev_days:
-            break
-
-    if count > 0:
-        ave_reading = sum/count
-        
-        if count < 3:
-            print("*"*50)
-            print("Warning!!! - Only {} historical values available. The average may not be accurate".format(count))
-            print("*"*50)
-        return ave_reading
-    else:
-        print("*"*30)
-        print("Warning!!! - No historical data available")
-        print("Returning the current reading as the average")
-        print("*"*30)
-        return curr_wifi_value
-
-
-
-def wifi_popular_times(date, data, location='CafEntr', no_prev_days=3):
-    ''' Data should be in form of a DataFrame'''
-
-    curr_reading = df[df.date==date][location].values[0]
-    ave_reading = find_average_reading(date, data, location, no_prev_days)
-    percent_diff = (curr_reading - ave_reading)/ave_reading
-
-    if percent_diff == 0 or abs(percent_diff) <= 0.05:
-      return 1
-    elif percent_diff > 0.05 and percent_diff <= 0.15:
-      return 2
-    elif percent_diff > 0.15:
-      return 3
-    elif percent_diff < -0.05 and percent_diff >= -0.15:
-      return 4
-    elif percent_diff < -0.15:
-      return 5
-
+    return dt
 
 
 # Read in the required csv file and format that columns appropriately ----------------------------
-df = pd.read_csv('Weekdays15Min_1.csv')
-df['date'] = pd.to_datetime(df['date'])
+historical_averages = {}
+files = os.listdir("historical_averages")
+for file in files:
+    print("File: ", file)
+    df = pd.read_csv("historical_averages/"+file)
+    df['Time'] = pd.to_datetime(df['Time'])
+    df['Time'] = df['Time'].apply(lambda x: x.time())
+    historical_averages[file] = df
+    # print(df)
 
-# Test service level api -------------------------------------------------------------------------
-location = 'CafEntr'
-sample_date = df.date[1000]
-service_level = wifi_popular_times(sample_date, df, location)
+# Keep a dictionary of the days of the week to be used in getting the 
+# corresponding averages
+week_days = {0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday"}
 
-print(service_level)
+# This variable will store the preloaded live data
+LIVE_DATA = [pd.DataFrame({})]
+TIME = [datetime.datetime.now(jst)]
+SENSOR = "AMPM18-KJ016"
 
-@app.route("/api")
-def katsura_data():
-  return {
-    "time": time.strftime("%X"),
-    "count": count
-    }
+@app.route("/day_average", defaults={'sensor':SENSOR})
+@app.route("/day_average/<sensor>")
+def get_day_average(sensor):
+    df = historical_averages[sensor+".csv"]
+    time = datetime.datetime.now(jst)
+    day = 0
 
-@app.route("/service-level-api")
-def service():
-  return {
-    "serviceLevel": service_level,
-    }
+    try:
+        day = week_days[int(day)]
+        message = "SUCCESS"
+        day_average = df[['Time', day]]
+        day_average = day_average.rename(columns={"Time":"time", day:"count"})
+        data = day_average.to_json(orient='records')
+        data = json.loads(data)
+    except:
+        message = "INVALID_DATE"
+        data = {}
+
+    TIME[0] = time
+    
+    return {"message":message, "data":data, "sensor": sensor}
+
+
+@app.route("/service_status")
+def service_status():
+    count = int(request.args.get("count"))
+    average_count = int(request.args.get("average_count"))
+
+    print("Count: ", count)
+
+    percent_diff = (count - average_count)/average_count
+
+    if percent_diff == 0 or abs(percent_diff) <= 0.05:
+      return '1'
+    elif percent_diff > 0.05 and percent_diff <= 0.15:
+      return '2'
+    elif percent_diff > 0.15:
+      return '3'
+    elif percent_diff < -0.05 and percent_diff >= -0.15:
+      return '4'
+    elif percent_diff < -0.15:
+      return '5'
+
+
+def get_live_data(time):
+    timeCode = time.strftime("%H") + time.strftime("%M")
+    dataURL = 'http://153.127.3.13/katsura/csv/5min/' + timeCode + '.csv'
+    print("Data URL: ", dataURL)
+    response = requests.get(dataURL, auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
+    df = pd.read_csv(response.raw)
+    df['TIMESTAMP'] = pd.to_datetime(df['TIMESTAMP'])
+    df['TIMESTAMP'] = df['TIMESTAMP'].dt.tz_localize("Asia/Tokyo")
+
+    return df
+
+
+def get_aggregated_data(live_data, aggregate=60, time=TIME):
+    time = time[0]
+    time = roundTime(time, roundTo=5)
+    print("Time: ", time)
+
+    df = pd.DataFrame({})
+    for i in range(3):
+        print("Fetching data...")
+        df_temp = get_live_data(time)
+        df = pd.concat([df_temp, df])
+        time = time - timedelta(minutes=5)
+    
+    live_data[0] = df.reset_index(drop=True)
+
+    return df
+
+
+def count_users(df, sensor):
+    if sensor != None:
+        df = df[df['AMPID']==sensor]
+    df = df.reset_index(drop=True)
+    count = len(df.AMAC.unique())
+    return (df,count)
+
+
+def test_scheduler(live_data=LIVE_DATA):
+    print("This is the current live_data\n", live_data[0])
+    return 0
+
+
+test_scheduler(LIVE_DATA)
+get_aggregated_data(LIVE_DATA)
+print(LIVE_DATA)
+sched.add_job(test_scheduler, 'interval', seconds=50, args=[LIVE_DATA])
+sched.add_job(get_aggregated_data,'interval', minutes=1, args=[LIVE_DATA])
+
+
+CAFE_SENSORS = ["AMPM18-KJ010", "AMPM18-KJ016", "AMPM18-KJ017"]
+
+@app.route("/service-level-api", defaults={'sensor':SENSOR})
+@app.route("/service-level-api/<sensor>")
+def service_level(sensor, live_data=LIVE_DATA, time=TIME):
+    time = TIME[0]
+
+    df = live_data[0]
+
+    if sensor in CAFE_SENSORS:
+        start = roundTime(time, roundTo=5)   
+        end = start - timedelta(minutes=15)
+        df = df[df['TIMESTAMP'] >= end]
+        time = roundTime(time, roundTo=15)
+    else:
+        time = roundTime(time, roundTo=60)
+
+    df,count = count_users(df, sensor=sensor)
+    print("Count: ", count)
+    
+    time_to_display = time.strftime('%A, %B %d, %Y')
+    time = "{:02d}:{:02d}".format(time.hour, time.minute)
+    print("Returned time: ", time)
+
+    # return df.to_html()
+    response = {"sensor":sensor, 
+                "time": time,
+                "count":count,
+                "time_to_display": time_to_display}
+
+    return response
+
+sched.start()
 
 if __name__ == "__main__":
-  app.run(debug=True)
+    app.run(debug=True)
