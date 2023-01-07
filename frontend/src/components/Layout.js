@@ -4,13 +4,13 @@ import Footer from "/src/components/Footer.js"
 
 const Layout = ({ children }) => {
   return (
-    <>
+    <body className="">
       <Header />
       <div className="">
         <main>{children}</main>
       </div>
       <Footer />
-    </>
+    </body>
   )
 }
 
