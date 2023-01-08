@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, BarController, BarElement, LinearScale, Title, CategoryScale } from 'chart.js';
 
 import LiveIcon from "../images/live-icon.svg"
-import ServiceStatus from "/src/components/ServiceStatus.js"
+import ServiceStatus from "./ServiceStatus.js"
 
 
 ChartJS.register(BarController, BarElement, LinearScale, CategoryScale, Title);

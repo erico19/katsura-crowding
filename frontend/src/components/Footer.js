@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import itslablogo from "/src/images/its-lab-logo.png"
+import itslablogo from "../images/its-lab-logo.png"
 
 const Footer = () => {
   return (

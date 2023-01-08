@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Notice from '/src/components/Notice.js';
-import PopularityChart from "/src/components/PopularityChart.js"
+import Notice from './Notice.js';
+import PopularityChart from "./PopularityChart.js"
 
 function MyDropdown() {
   const [selectedOption, setSelectedOption] = useState('AMPM18-KJ016');

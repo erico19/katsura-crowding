@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import kyodaiLogo from "/src/images/kyodai-logo.svg"
+import kyodaiLogo from "../images/kyodai-logo.svg"
 
 const Header = () => (
   <div>    
