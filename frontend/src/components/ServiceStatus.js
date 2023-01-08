@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 
-function ServiceStatus({count, average_count}) {
+function ServiceStatus({count, average_count, apiURL}) {
 	const [status, setStatus] = useState();
 
 	useEffect(() => {
-		fetch(`http://127.0.0.1:5000/service_status?count=${count}&average_count=${average_count}`)
+		fetch(`${apiURL}/service_status?count=${count}&average_count=${average_count}`)
 		.then((res) => res.json()
 		.then((json) => setStatus(json))
 		);
 	}, [count]);
 
-	console.log(`http://127.0.0.1:5000/service_status?count=${count}&average_count=${average_count}`)
+	console.log(`${apiURL}/service_status?count=${count}&average_count=${average_count}`)
   console.log("Service status: ", status)
 
   if (status == 5) {
