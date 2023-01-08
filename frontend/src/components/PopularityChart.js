@@ -165,15 +165,7 @@ const PopularityChart = ({ location }) => {
         <div>
           {displayBarChart}          
         </div>
-        <div className="flex gap-1 items-center">
-          <img
-            className="inline h-4"
-            src={LiveIcon}
-            alt="Live"
-          />
-          {/*<span className="text-sm text-gray-800 font medium">{"Busy message goes here"}</span>*/}
-          <span className="text-sm text-gray-800 font medium">{service_status}</span>
-        </div>
+        {service_status}
       </div>
     </div>
 	);
