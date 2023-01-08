@@ -13,23 +13,23 @@ function ServiceStatus({count, average_count, apiURL}) {
 	console.log(`${apiURL}/service_status?count=${count}&average_count=${average_count}`)
   console.log("Service status: ", status)
 
-  if (status == 5) {
+  if (status === 5) {
     return (
 			"Much less busier than usual."
     )
-  } else if (status == 4) {
+  } else if (status === 4) {
     return (
 			"Less busier than usual."
     )
-  } else if (status == 3) {
+  } else if (status === 3) {
     return (
 			"Much busier than usual."
     )
-  } else if (status == 2) {
+  } else if (status === 2) {
     return (
 			"Busier than usual."
     )
-  } else if (status == 1) {
+  } else if (status === 1) {
     return (
 			"As busy as usual."
     )

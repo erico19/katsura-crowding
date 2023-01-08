@@ -5,8 +5,6 @@ import Exclamation from "../images/exclamation.svg"
 const notice_sensors = ["AMPM18-KJ010", "AMPM18-KJ016", "AMPM18-KJ017"];
 
 const Notice = ({ location }) => {
-  const time = new Date();
-  var hourNow = time.getHours();
   var message = null;
 
   if (notice_sensors.includes(location)){
