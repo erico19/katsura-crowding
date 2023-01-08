@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, BarController, BarElement, LinearScale, Title, CategoryScale } from 'chart.js';
 
-import LiveIcon from "../images/live-icon.svg"
 import ServiceStatus from "./ServiceStatus.js"
 
 
