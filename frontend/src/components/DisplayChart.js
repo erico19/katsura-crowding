@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Notice from './Notice.js';
 import PopularityChart from "./PopularityChart.js"
+import DescriptionBox from "./DescriptionBox"
 
 function MyDropdown({admin}) {
   const [selectedOption, setSelectedOption] = useState('AMPM18-KJ016');
@@ -21,14 +21,22 @@ function MyDropdown({admin}) {
             <option value="AMPM18-KJ012">Katsura Main Student Library</option>
             <option value="AMPM18-KJ013">A1 Entrance</option>
             <option value="AMPM18-KJ014">A2 Park Mae</option>
-            <option value="AMPM18-KJ015">Near Bakery</option>
+            <option value="AMPM18-KJ015">Boulangerie Seri Bakery</option>
             <option value="AMPM18-KJ016">Main Cafeteria Entrance</option>
             <option value="AMPM18-KJ017">Main Cafeteria Exit</option>
           </select>
         </div>
         
-        <Notice location={selectedOption}/>
+        {/*<Notice location={selectedOption}/>*/}
         <PopularityChart location={selectedOption}/>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
+          <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
+            Participate in online survey
+          </button>
+        </a>
+
+        <DescriptionBox location={selectedOption} />
       </div>
     );
   } else {
@@ -41,8 +49,16 @@ function MyDropdown({admin}) {
           </select>
         </div>
         
-        <Notice location={selectedOption}/>
+        {/*<Notice location={selectedOption}/>*/}
         <PopularityChart location={selectedOption}/>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
+          <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
+            Participate in online survey
+          </button>
+        </a>
+
+        <DescriptionBox location={selectedOption} />
       </div>
     );
   }
