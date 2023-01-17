@@ -8,7 +8,7 @@ const Notice = ({ location }) => {
   var message = null;
 
   if (notice_sensors.includes(location)){
-    message = "Cafeteria Soleil is open for lunch from 11:00AM to 2:00PM"
+    message = "Cafeteria Selene is open for lunch from 11:00AM to 2:00PM"
   } else if (location == "AMPM18-KJ008") {
     message = "C Cluster Admnistration Office is open from 9:00AM TO 5:00PM"
   }
