@@ -38,7 +38,7 @@ function MyDropdown({admin}) {
             </button>
           </a>
 
-          <Link to="/acknowldgements">
+          <Link to="/acknowledgements">
             <button className="hover:bg-gray-100 border-2 border-gray-200 text-primary text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
               Project Explanations &  Acknowledgements
             </button>
@@ -69,7 +69,7 @@ function MyDropdown({admin}) {
             </button>
           </a>
 
-          <Link to="/acknowldgements">
+          <Link to="/acknowledgements">
             <button className="hover:bg-gray-100 border-2 border-gray-200 text-primary text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
               Project Explanations &  Acknowledgements
             </button>
