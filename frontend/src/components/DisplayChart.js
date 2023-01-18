@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "gatsby"
 import PopularityChart from "./PopularityChart.js"
 import DescriptionBox from "./DescriptionBox"
 
@@ -30,11 +31,19 @@ function MyDropdown({admin}) {
         {/*<Notice location={selectedOption}/>*/}
         <PopularityChart location={selectedOption}/>
 
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
-          <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-            Participate in online survey
-          </button>
-        </a>
+        <div className='flex gap-2'>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
+            <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
+              Participate in online survey
+            </button>
+          </a>
+
+          <Link to="/acknowldgements">
+            <button className="hover:bg-gray-100 border-2 border-gray-200 text-primary text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
+              Project Explanations &  Acknowledgements
+            </button>
+          </Link>
+        </div>
 
         <DescriptionBox location={selectedOption} />
       </div>
@@ -53,11 +62,19 @@ function MyDropdown({admin}) {
         {/*<Notice location={selectedOption}/>*/}
         <PopularityChart location={selectedOption}/>
 
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
-          <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-            Participate in online survey
-          </button>
-        </a>
+        <div className='flex gap-2'>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
+            <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
+              Participate in online survey
+            </button>
+          </a>
+
+          <Link to="/acknowldgements">
+            <button className="hover:bg-gray-100 border-2 border-gray-200 text-primary text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
+              Project Explanations &  Acknowledgements
+            </button>
+          </Link>
+        </div>
 
         <DescriptionBox location={selectedOption} />
       </div>

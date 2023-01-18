@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Link } from "gatsby"
 import itslablogo from "../images/its-lab-logo.png"
 
 const Footer = () => {
@@ -17,18 +16,6 @@ const Footer = () => {
           <p className="">Katsura Campus Crowding Research by ITS Lab, Kyoto University. </p>
           <div className="flex gap-2">
             <p className="">© {new Date().getFullYear()} ITS Lab.</p>
-            <Link 
-              to="/acknowledgements" 
-              className="text-primary"
-              style={{
-                backgroundImage: 'linear-gradient(90deg, #66E1FF, #66E1FF)',
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: '100% .25em',
-                backgroundPosition: '0 70%',
-                textDecoration: 'none',
-              }}>
-              Project explanation and acknowledgements.
-            </Link>
           </div>
         </div>
       </main>
