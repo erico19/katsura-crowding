@@ -17,9 +17,9 @@ function ServiceStatus({count, average_count, apiURL}) {
   var message = null;
 
   if (status === 5) {
-    message = "Much less busier than usual."
+    message = "Much less busy than usual."
   } else if (status === 4) {
-    message = "Less busier than usual."
+    message = "Less busy than usual."
   } else if (status === 3) {
     message = "Much busier than usual."
   } else if (status === 2) {
