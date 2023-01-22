@@ -6,8 +6,7 @@ const DescriptionBox = ({ location }) => {
   if (notice_sensors.includes(location)) {
     return (
       <div className="grid gap-4 py-4 mt-16 items-center border-y-2">
-        <p className="text-base text-gray-800 font-medium">Cafeteria Selene is open for lunch from 11:00 AM to 2:00PM on weekdays and is located at B cluster with; a variety of seating arrangements for both individuals and groups, coupled with a delicately imposing natural scenery juxtaposed against the iconic view of the Magnificent Kyoto City, which will both relax and inspire you.</p>
-        <p className='prose'><a href='https://west2-univ.jp/sp/index.php?t=650120'>See today's menu here.</a></p>
+        <p className="prose text-base text-gray-800 font-medium">Cafeteria Selene is open for lunch from 11:00 AM to 2:00PM on weekdays and is located at B cluster with; a variety of seating arrangements for both individuals and groups, coupled with a delicately imposing natural scenery juxtaposed against the iconic view of the Magnificent Kyoto City, which will both relax and inspire you. <a href='https://west2-univ.jp/sp/index.php?t=650120'>See today's menu here.</a></p>
       </div>
     )
   } else if (location == "AMPM18-KJ008") { 
