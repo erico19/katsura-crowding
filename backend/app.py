@@ -83,13 +83,13 @@ def service_status():
 
     if percent_diff == 0 or abs(percent_diff) <= 0.05:
       return '1'
-    elif percent_diff > 0.05 and percent_diff <= 0.25:
+    elif percent_diff > 0.05 and percent_diff <= 0.50:
       return '2'
-    elif percent_diff > 0.25:
+    elif percent_diff > 0.50:
       return '3'
-    elif percent_diff < -0.05 and percent_diff >= -0.25:
+    elif percent_diff < -0.05 and percent_diff >= -0.50:
       return '4'
-    elif percent_diff < -0.25:
+    elif percent_diff < -0.50:
       return '5'
 
 
