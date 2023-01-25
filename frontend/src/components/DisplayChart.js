@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from "gatsby"
+import { graphql } from 'gatsby';
+import {Trans, useTranslation} from 'gatsby-plugin-react-i18next';
+
+
 import PopularityChart from "./PopularityChart.js"
 import DescriptionBox from "./DescriptionBox"
 
@@ -34,7 +38,7 @@ function MyDropdown({admin}) {
         <div className='flex gap-2'>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
             <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-              Participate in online survey
+              <Trans>Participate in online survey</Trans>
             </button>
           </a>
 
@@ -84,3 +88,17 @@ function MyDropdown({admin}) {
 }
 
 export default MyDropdown;
+
+export const query = graphql`
+  query ($language: String!) {
+    locales: allLocale(filter: {language: {eq: $language}}) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+  }
+`;
