@@ -38,12 +38,13 @@ const DescriptionBox = ({ location }) => {
       <div className="grid gap-2 py-4 mt-16 items-center border-y-2">
         <p className="text-base text-gray-800 font-medium">The departments of Molecular Engineering, Synthetic and Biological Chemistry and Chemical Engineering are found in A4 Building which is located at the extreme lower right of A cluster. The A4 Building Entrance is open from 8:30AM to 6:00PM and serves as the rear access to A Cluster via the Katsura innovation Park Mae Bus Stop for the Keihan and Kyoto City Buses. The graphical display shown here displays the general arrival and departure patterns of staff and students but may also capture vehicular arrival and departure patterns at the near by parking lot during the day.</p>
       </div> 
+    )
    } else if (location == "AMPM18-KJ014") { 
     return (
       <div className="grid gap-2 py-4 mt-16 items-center border-y-2">
         <p className="text-base text-gray-800 font-medium">P3B Parking is the main designated parking area at A Cluster located between Buildings A3 and A4, open for 24 hours from 6:00AM to 6:00PM. The Graphical display shown here may contain an interfusion of both the dynamic variation Human Crowd and Vehicle Traffic at the areas near and around the parking area during the day.</p>
       </div>    
-      
+    )
   } else if (location == "AMPM18-KJ015") {
     return (
       <div className="grid gap-2 py-4 mt-16 items-center border-y-2">
