@@ -5,7 +5,7 @@ import kyodaiLogo from "../images/kyodai-logo.svg"
 const Header = () => (
   <div>    
     <div className="p-4 md:p-8 bg-primary">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+      <div className="max-w-6xl mx-auto flex gap-4 justify-center items-center">
         <img
           className="flex w-16 md:w-18"
           src={kyodaiLogo}
