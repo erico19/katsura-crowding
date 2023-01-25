@@ -10,7 +10,7 @@ import explanationMap from "../images/explanation-map.png"
 
 const Acknowledgements = () => (
   <Layout>
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto text-justify">
       <h1 className="md:text-4xl text-3xl font-bold my-4 md:my-8 py-2 border-b-2">
         Project explanations
       </h1>
