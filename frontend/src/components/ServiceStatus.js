@@ -17,10 +17,10 @@ function ServiceStatus({count, average_count, apiURL, location}) {
     message = "Much busier than usual."
   }
   else if (percent_diff < -0.05 && percent_diff >= -0.50){
-    message = "Less busier than usual."
+    message = "Less busy than usual."
   }
   else if (percent_diff < -0.50) {
-    message = "Much less busier than usual."
+    message = "Much less busy than usual."
   } else {
     message = ""
   }
