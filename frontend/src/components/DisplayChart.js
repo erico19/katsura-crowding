@@ -19,16 +19,16 @@ function MyDropdown({admin}) {
       <div className='grid gap-2'>
         <div classname='flex'>
           <select value={selectedOption} onChange={handleChange}>
-            <option value="AMPM18-KJ008">C Cluster Admnistration Office</option>
-            <option value="AMPM18-KJ009">C1 Entrance</option>
-            <option value="AMPM18-KJ010">Inside Main Cafeteria</option>
-            <option value="AMPM18-KJ011">B Cluster Administration Office</option>
-            <option value="AMPM18-KJ012">Katsura Library</option>
-            <option value="AMPM18-KJ013">A1 Entrance</option>
-            <option value="AMPM18-KJ014">A2 Park Mae</option>
-            <option value="AMPM18-KJ015">Boulangerie Seri Bakery</option>
-            <option value="AMPM18-KJ016">Main Cafeteria Entrance</option>
-            <option value="AMPM18-KJ017">Main Cafeteria Exit</option>
+            <option value="AMPM18-KJ008">{t("C Cluster Administration Office")}</option>
+            <option value="AMPM18-KJ009">{t("C1 Entrance")}</option>
+            <option value="AMPM18-KJ010">{t("Inside Main Cafeteria")}</option>
+            <option value="AMPM18-KJ011">{t("B Cluster Administration Office")}</option>
+            <option value="AMPM18-KJ012">{t("Katsura Main Library")}</option>
+            <option value="AMPM18-KJ013">{t("A4 Rear Entrance")}</option>
+            <option value="AMPM18-KJ014">{t("P3P Parking Mae")}</option>
+            <option value="AMPM18-KJ015">{t("Boulangerie Seri Bakery")}</option>
+            <option value="AMPM18-KJ016">{t("Main Cafeteria Entrance")}</option>
+            <option value="AMPM18-KJ017">{t("Main Cafeteria Exit")}</option>
           </select>
         </div>
         
@@ -57,9 +57,9 @@ function MyDropdown({admin}) {
       <div className='grid gap-2'>
         <div classname='flex'>
           <select value={selectedOption} onChange={handleChange}>
-            <option value="AMPM18-KJ012">Katsura Library</option>
-            <option value="AMPM18-KJ010">Inside Main Cafeteria</option>
-            <option value="AMPM18-KJ016">Main Cafeteria Entrance</option>
+            <option value="AMPM18-KJ012">{t("Katsura Main Library")}</option>
+            <option value="AMPM18-KJ010">{t("Inside Main Cafeteria")}</option>
+            <option value="AMPM18-KJ016">{t("Main Cafeteria Entrance")}</option>
           </select>
         </div>
         
