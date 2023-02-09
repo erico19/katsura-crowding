@@ -40,12 +40,11 @@ for file in files:
     historical_averages[file] = df
     # print(df)
 
-# Keep a dictionary of the days of the week to be used in getting the 
-# corresponding averages
+# Keep a dictionary of the days of the week to be used in getting the corresponding averages
 week_days = {0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday", 5:"Saturday", 6:"Sunday"}
 
 # This variable will store the preloaded live data
-LIVE_DATA = [pd.DataFrame({})]
+LIVE_DATA = [pd.DataFrame({}), pd.DataFrame({})]
 TIME = [datetime.datetime.now(jst)]
 SENSOR = "AMPM18-KJ016"
 
@@ -85,20 +84,34 @@ def get_live_data(time):
 
 
 def get_aggregated_data(live_data, aggregate=60, time=TIME):
-    time = time[0]
-    time = roundTime(time, roundTo=5)
-    print("Time: ", time)
+    time1 = time[0]
+    time1 = roundTime(time1, roundTo=5)
+    print("Time: ", time1)
 
     df = pd.DataFrame({})
-    for i in range(12):
+    for i in range(3):
         print("Fetching data...")
-        df_temp = get_live_data(time)
+        df_temp = get_live_data(time1)
         df = pd.concat([df_temp, df])
         time = time - timedelta(minutes=5)
     
-    live_data[0] = df.reset_index(drop=True)
+        time = time1 - timedelta(minutes=5)
+        
+df = df.reset_index(drop=True)
+live_data[0] = df.copy()
 
-    return df
+time2 = time[0]
+time2 = roundTime(time2, roundTo=5)
+
+df = pd.DataFrame({})
+for i in range(12):
+    print("Fetching data...")
+    df_temp = get_live_data(time2)
+    df = pd.concat([df_temp, df])
+    time2 = time2 - timedelta(minutes=5)
+    
+df = df.reset_index(drop=True)
+live_data[1] = df.copy()
 
 
 def count_users(df, sensor):
@@ -131,11 +144,10 @@ def service_level(sensor, live_data=LIVE_DATA, time=TIME):
     df = live_data[0]
 
     if sensor in CAFE_SENSORS:
-        start = roundTime(time, roundTo=5)   
-        end = start - timedelta(minutes=15)
-        df = df[df['TIMESTAMP'] >= end]
+        df = live_data[0].copy()
         time = roundTime(time, roundTo=15)
     else:
+        df = live_data[1].copy()
         time = roundTime(time, roundTo=60)
 
     df,count = count_users(df, sensor=sensor)
