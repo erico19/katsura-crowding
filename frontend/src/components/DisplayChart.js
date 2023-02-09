@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from "gatsby"
 import { graphql } from 'gatsby';
-import {Trans, useTranslation} from 'gatsby-plugin-react-i18next';
+import { Link, useI18next, Trans, useTranslation } from "gatsby-plugin-react-i18next"
 
 
 import PopularityChart from "./PopularityChart.js"
@@ -9,6 +8,7 @@ import DescriptionBox from "./DescriptionBox"
 
 function MyDropdown({admin}) {
   const [selectedOption, setSelectedOption] = useState('AMPM18-KJ016');
+  const { t } = useI18next();
 
   function handleChange(event) {
     setSelectedOption(event.target.value);
@@ -38,13 +38,13 @@ function MyDropdown({admin}) {
         <div className='flex gap-2'>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
             <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-              <Trans>Participate in online survey</Trans>
+              {t("Participate in online survey")}
             </button>
           </a>
 
           <Link to="/acknowledgements">
             <button className="hover:bg-gray-100 border-2 border-gray-200 text-primary text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-              Project Explanations &  Acknowledgements
+              {t("Project Explanations &  Acknowledgements")}
             </button>
           </Link>
         </div>
@@ -69,13 +69,13 @@ function MyDropdown({admin}) {
         <div className='flex gap-2'>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
             <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-              Participate in online survey
+              {t("Participate in online survey")}
             </button>
           </a>
 
           <Link to="/acknowledgements">
             <button className="hover:bg-gray-100 border-2 border-gray-200 text-primary text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
-              Project Explanations &  Acknowledgements
+              {t("Project Explanations &  Acknowledgements")}
             </button>
           </Link>
         </div>

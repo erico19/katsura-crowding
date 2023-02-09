@@ -43,6 +43,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-react-i18next',
       options: {
+        path: `${__dirname}/locales`,
         languages,
         defaultLanguage,
         siteUrl: `https://katsura.gatsbyjs.io`,
