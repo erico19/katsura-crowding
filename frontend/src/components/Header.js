@@ -16,8 +16,7 @@ const Header = () => {
           <Link to="/">
             <h1 className="flex text-white text-center text-xl md:text-3xl font-bold">Katsura Campus Wi-Fi Times</h1>   
           </Link>
-        </div>
-        
+        </div> 
       </div>
       <div className="px-4 md:px-8 bg-gray-200">
         <ul className="languages flex gap-2 justify-end max-w-6xl mx-auto">

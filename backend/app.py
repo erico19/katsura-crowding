@@ -42,7 +42,7 @@ for file in files:
 
 # Keep a dictionary of the days of the week to be used in getting the 
 # corresponding averages
-week_days = {0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday"}
+week_days = {0:"Monday", 1:"Tuesday", 2:"Wednesday", 3:"Thursday", 4:"Friday", 5:"Saturday", 6:"Sunday"}
 
 # This variable will store the preloaded live data
 LIVE_DATA = [pd.DataFrame({})]
@@ -72,27 +72,6 @@ def get_day_average(sensor):
     return {"message":message, "data":data, "sensor": sensor}
 
 
-@app.route("/service_status")
-def service_status():
-    count = int(request.args.get("count"))
-    average_count = int(request.args.get("average_count"))
-
-    print("Count: ", count)
-
-    percent_diff = (count - average_count)/average_count
-
-    if percent_diff == 0 or abs(percent_diff) <= 0.05:
-      return '1'
-    elif percent_diff > 0.05 and percent_diff <= 0.25:
-      return '2'
-    elif percent_diff > 0.25:
-      return '3'
-    elif percent_diff < -0.05 and percent_diff >= -0.25:
-      return '4'
-    elif percent_diff < -0.25:
-      return '5'
-
-
 def get_live_data(time):
     timeCode = time.strftime("%H") + time.strftime("%M")
     dataURL = 'http://153.127.3.13/katsura/csv/5min/' + timeCode + '.csv'
@@ -111,7 +90,7 @@ def get_aggregated_data(live_data, aggregate=60, time=TIME):
     print("Time: ", time)
 
     df = pd.DataFrame({})
-    for i in range(3):
+    for i in range(12):
         print("Fetching data...")
         df_temp = get_live_data(time)
         df = pd.concat([df_temp, df])

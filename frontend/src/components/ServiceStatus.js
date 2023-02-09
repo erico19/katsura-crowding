@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from "react";
 import LiveIcon from "../images/live-icon.svg"
 
-function ServiceStatus({count, average_count, apiURL}) {
+function ServiceStatus({count, average_count, apiURL, location}) {
 	const [status, setStatus] = useState();
 
-	useEffect(() => {
-		fetch(`${apiURL}/service_status?count=${count}&average_count=${average_count}`)
-		.then((res) => res.json()
-		.then((json) => setStatus(json))
-		);
-	}, [count]);
-
-	console.log(`${apiURL}/service_status?count=${count}&average_count=${average_count}`)
-  console.log("Service status: ", status)
-
   var message = null;
+  var percent_diff = (count - average_count)/average_count
 
-  if (status === 5) {
-    message = "Much less busy than usual."
-  } else if (status === 4) {
-    message = "Less busy than usual."
-  } else if (status === 3) {
-    message = "Much busier than usual."
-  } else if (status === 2) {
-    message = "Busier than usual."
-  } else if (status === 1) {
+  if (Math.abs(percent_diff) <= 0.05){
     message = "As busy as usual."
-  } 
+  }
+  else if (percent_diff > 0.05 && percent_diff <= 0.50) {
+    message = "Busier than usual."
+  }
+  else if (percent_diff > 0.50) {
+    message = "Much busier than usual."
+  }
+  else if (percent_diff < -0.05 && percent_diff >= -0.50){
+    message = "Less busy than usual."
+  }
+  else if (percent_diff < -0.50) {
+    message = "Much less busy than usual."
+  } else {
+    message = ""
+  }
 
-  console.log("Message: ", message)
   if (status !== 0) {
     return (
       <div className="flex gap-1 items-center">
