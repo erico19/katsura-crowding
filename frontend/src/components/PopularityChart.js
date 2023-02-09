@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useI18next } from 'gatsby-plugin-react-i18next';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, BarController, BarElement, LinearScale, Title, CategoryScale } from 'chart.js';
 
@@ -149,13 +150,12 @@ const PopularityChart = ({ location }) => {
       service_status = ""
     }
   }
+
+  const { t } = useI18next();
+  const language = t('CURRENT_LOCALE')
   
-  if (popularity.time_to_display == null){
-    const time = new Date();
-    var dateToDisplay = time.toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"long", day:"numeric"})
-  } else {
-    var dateToDisplay = popularity.time_to_display
-  }
+  const time = new Date();
+  var dateToDisplay = time.toLocaleDateString(language, { weekday:"long", year:"numeric", month:"long", day:"numeric"})
 
   return (
     <div>
