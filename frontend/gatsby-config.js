@@ -1,8 +1,11 @@
+const { languages, defaultLanguage } = require('./languages');
+
 module.exports = {
   siteMetadata: {
     title: `Katsura Cafeteria Crowding`,
     author: `ridwan`,
     description: `Crowding research @ITS Lab Kyoto University`,
+    siteUrl: `https://katsura.gatsbyjs.io/`
   },
   plugins: [
     {
@@ -27,9 +30,34 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `locale`,
+        path: `${__dirname}/locales`
+      }
+    },
     `gatsby-transformer-sharp`,
     'gatsby-plugin-netlify',
     'gatsby-plugin-postcss',
+    {
+      resolve: 'gatsby-plugin-react-i18next',
+      options: {
+        path: `${__dirname}/locales`,
+        languages,
+        defaultLanguage,
+        siteUrl: `https://katsura.gatsbyjs.io`,
+        i18nextOptions: {
+          // debug: true,
+          fallbackLng: defaultLanguage,
+          supportedLngs: languages,
+          defaultNS: 'common',
+          interpolation: {
+            escapeValue: false, // not needed for react as it escapes by default
+          }
+        },
+      },
+    },
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
