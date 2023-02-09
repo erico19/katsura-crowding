@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { useI18next } from "gatsby-plugin-react-i18next"
 import LiveIcon from "../images/live-icon.svg"
 
 function ServiceStatus({count, average_count, apiURL, location}) {
 	const [status, setStatus] = useState();
+  const { t } = useI18next();
 
   var message = null;
   var percent_diff = (count - average_count)/average_count
 
   if (Math.abs(percent_diff) <= 0.05){
-    message = "As busy as usual."
+    message = t("As busy as usual.")
   }
   else if (percent_diff > 0.05 && percent_diff <= 0.50) {
-    message = "Busier than usual."
+    message = t("Busier than usual.")
   }
   else if (percent_diff > 0.50) {
-    message = "Much busier than usual."
+    message = t("Much busier than usual.")
   }
   else if (percent_diff < -0.05 && percent_diff >= -0.50){
-    message = "Less busy than usual."
+    message = t("Less busy than usual.")
   }
   else if (percent_diff < -0.50) {
-    message = "Much less busy than usual."
+    message = t("Much less busy than usual.")
   } else {
     message = ""
   }
