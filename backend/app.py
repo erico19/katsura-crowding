@@ -76,7 +76,7 @@ def get_live_data(time):
     timeCode = time.strftime("%H") + time.strftime("%M")
     dataURL = 'http://153.127.3.13/katsura/csv/5min/' + timeCode + '.csv'
     print("Data URL: ", dataURL)
-    response = requests.get(dataURL, auth=HTTPBasicAuth('katsura', 'katsura'), stream=True)
+    response = requests.get(dataURL, auth=HTTPBasicAuth('katsura', 'katsura'), stream=True, timeout=45)
     df = pd.read_csv(response.raw)
     df['TIMESTAMP'] = pd.to_datetime(df['TIMESTAMP'])
     df['TIMESTAMP'] = df['TIMESTAMP'].dt.tz_localize("Asia/Tokyo")
@@ -111,6 +111,7 @@ def count_users(df, sensor):
 
 def test_scheduler(live_data=LIVE_DATA):
     print("This is the current live_data\n", live_data[0])
+    print("bleble", live_data)
     return 0
 
 
@@ -118,7 +119,7 @@ test_scheduler(LIVE_DATA)
 get_aggregated_data(LIVE_DATA)
 print(LIVE_DATA)
 sched.add_job(test_scheduler, 'interval', seconds=50, args=[LIVE_DATA])
-sched.add_job(get_aggregated_data,'interval', minutes=1, args=[LIVE_DATA])
+sched.add_job(get_aggregated_data,'interval', minutes=2, args=[LIVE_DATA])
 
 
 CAFE_SENSORS = ["AMPM18-KJ010", "AMPM18-KJ016", "AMPM18-KJ017"]
