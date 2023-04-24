@@ -33,7 +33,7 @@ function MyDropdown({admin}) {
         <PopularityChart location={selectedOption}/>
 
         <div className='flex gap-2'>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
+          <a href="https://forms.gle/AGJnrFne3BGP7wkn6">
             <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
               {t("Participate in online survey")}
             </button>
@@ -64,7 +64,7 @@ function MyDropdown({admin}) {
         <PopularityChart location={selectedOption}/>
 
         <div className='flex gap-2'>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLScU2ZbhWCi0iWpxQf8SrkZn0OopxQ14FeHZs0MaDCwGQ1qmrg/viewform?usp=sf_link">
+          <a href="https://forms.gle/AGJnrFne3BGP7wkn6">
             <button className="bg-primary hover:bg-gray-600 text-white text-sm sm:text-md font-medium py-2 px-4 rounded-lg">
               {t("Participate in online survey")}
             </button>
