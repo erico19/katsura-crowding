@@ -24,7 +24,7 @@ const PopularityChart = ({ location }) => {
                                         "time_to_display": null,
                                       });
   
-  const apiURL = "https://katsura-backend-2buut.ondigitalocean.app";
+  const apiURL = "https://katsura-backend.onrender.com";
 
   useEffect(() => {
     console.log("Fetching data...")
